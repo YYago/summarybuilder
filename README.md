@@ -25,3 +25,12 @@ command(命令)| description(说明)
 summary -c | 创建SUMMARY.md里列出的文件。
 summary -b | 创建_summary.md 清单。
 summary -d | 删除垃圾文件( `./.li.json` 、` ./_summary.md`)。
+
+## Some troubles
+
+水平有限，错误难免，求神助攻！
+第一次publish的时候居然不能运行......我那个心情呀......
+
+## Licence
+
+[MIT](./LICENSE)

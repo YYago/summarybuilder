@@ -1,6 +1,6 @@
 {
   "name": "summarybuilder",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "用于gitbook的Summary.md 文件的工具，基于已有文件创建目录摘要，或者基于已有的目录摘要创建对应的文件(已经存在的文件不会创建)。",
   "main": "summary.js",
   "scripts": {
@@ -17,10 +17,18 @@
   ],
   "author": "YYago",
   "license": "MIT",
+    "bin": {
+      "summary": "./summary.js"
+  },
   "bugs": {
     "url": "https://github.com/YYago/summarybuilder/issues"
   },
   "homepage": "https://github.com/YYago/summarybuilder#readme",
+  "dependencies":{
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-filelist": "^1.0.0"
+  },
   "devDependencies": {
     "del": "^3.0.0",
     "gulp": "^3.9.1",
