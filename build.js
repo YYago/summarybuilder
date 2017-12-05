@@ -11,21 +11,21 @@ function build(bool) {
             var title = line.match(/\[[\s\S]*\]\B/g);
             title = '# ' + title[0].replace(/^\[|\]$/g, "");
             var filePath = line.match(/\([\w\W]*\)\B/g);
-            filePath = filePath[0].replace('(', "").replace(')', "").replace('./', "");// note: 替换掉前缀“./”
-            if (fs.existsSync(filePath) !== true) {
-                var porint = new RegExp('/');
-                if (porint.test(filePath)) {
-                    var p = filePath.replace(/\/\w+\.\w+/, "");
-                    if(fs.existsSync(p)!==true){
-                        fs.mkdir(p);
-                    }                
+            var fileName = filePath[0].replace(/[\(\)]/g,"");
+            var fileName_dir =  path.dirname(fileName);
+            if(fs.existsSync(fileName)==false){
+                if(fs.existsSync(fileName_dir)){
+                    fs.writeFileSync(fileName,title,{encoding:'utf8'},(err)=>{
+                        if(err) throw err;
+                    });
+                }else{
+                    fs.mkdirSync(fileName_dir);
+                    fs.writeFileSync(fileName,title,{encoding:'utf8'},(err)=>{
+                        if(err) throw err;
+                    });
                 }
-                fs.writeFileSync(filePath, title, { encoding: 'utf8', flag: 'w' }, function (err) {
-                    if (err) {
-                        throw err;
-                    }
-                });
             }
+            
         });
     }
 }
