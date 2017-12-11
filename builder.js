@@ -3,36 +3,28 @@ var gFileList = require('gulp-filelist');
 var gH1 = require('./geth1');
 var fs = require('fs');
 
-function cFile(bool) {
-    var smArg = arguments[1];
-    var indent = arguments[2];
-    var regexps = new RegExp(/[\[\]]/g);
-    if (bool == true && smArg == undefined) {
-        gulp.src(['./**/*.md', './**/*.html', '!SUMMARY.md', '!node_modules/**', '!_summary.md'])
-            .pipe(gFileList('.li.json'))
-            .pipe(gulp.dest('./'));
-            
-    } else if (bool == true && regexps.test(smArg)) {
-        var ignoefoo = ['./**/*.md', './**/*.html', '!SUMMARY.md', '!node_modules/**', '!_summary.md'];
-        var ig = smArg.replace(/[\[\]]/g, "");
-        var ignores = [...ignoefoo, ig];
-        // console.log(ignores);
-        gulp.src(ignores)
-            .pipe(gFileList('.li.json'))
-            .pipe(gulp.dest('./'));
 
-    } else if (bool == true && typeof(smArg)=="object") {
-        var ignoefoo = ['./**/*.md', './**/*.html', '!SUMMARY.md', '!node_modules/**', '!_summary.md'];
-        var ignores = [...ignoefoo, smArg];
-        // console.log(ignores);
-        gulp.src(ignores)
-            .pipe(gFileList('.li.json'))
-            .pipe(gulp.dest('./'));
-    } else if (bool == true && smArg == true) {
-        gulp.src(['./**/*.md', './**/*.html', '!SUMMARY.md', '!node_modules/**', '!_summary.md'])
-            .pipe(gFileList('.li.json'))
-            .pipe(gulp.dest('./'));
+function glist(srcs) {
+    gulp.src(srcs)
+        .pipe(gFileList('.li.json'))
+        .pipe(gulp.dest('./'));
+}
+
+function buildSummary() {
+    var ar0 = arguments[0];
+    var ar1 = arguments[1];
+
+    var gSRC = ['./**/*.md', './**/*.html', '!SUMMARY.md', '!node_modules/**', '!_summary.md'];
+
+    if (ar0 == undefined || ar1 == undefined) {
+        glist(gSRC);
+    } else if (type(ar0) == "object") {
+        var gSRCs = [...gSRC, ...ar0];
+        glist(gSRCs);
+    } else if (typeof (ar1) == "object") {
+        var gSRCs = [...gSRC, ...ar1];
     }
+
     setTimeout(function () {  // gulp 是否完成无法确定，只好等上3秒。我觉得应该够了.....
         if (fs.existsSync('./.li.json')) {
             var fcount = JSON.parse(fs.readFileSync('./.li.json'));
@@ -41,7 +33,7 @@ function cFile(bool) {
                 for (var i = 0; i < fcount.length; i++) {
                     var CFpath = fcount[i];
                     var CFtitle = gH1.getFirstH1(fcount[i]);
-                    if (smArg == true || indent == true) {
+                    if (ar0 == "-t") {
                         var prefix = '\ \ ';
                         var spsign = CFpath.match(/\//g);
                         if (spsign !== null) {
@@ -66,8 +58,10 @@ function cFile(bool) {
                 });
             }
         }
-    }, 3000);
+    }, 5000);
+    console.log("ok");
 }
+
 module.exports = {
-    cFile
+    buildSummary
 }
