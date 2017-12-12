@@ -21,7 +21,7 @@ if (process.argv[3] !== undefined && process.argv[3] !== "-t") {// not -b -t
 
 switch (opt2) {
     case "-c":
-        FileCreater.cf();
+        FileCreater.cf(true);
         break;
     case "-d":
         del.sync('./.li.json');
@@ -38,6 +38,8 @@ if (opt2 == "-b" && optCount > 3) {
     }
 } else if (opt2 == "-b" && process.argv[3] == undefined) {
     builder.buildSummary();
+}else if(opt2 =="-b" && process.argv[3]=="-t" && process.argv[4]==undefined){
+    builder.buildSummary("-t");
 }
 
 

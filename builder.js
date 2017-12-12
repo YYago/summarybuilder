@@ -18,7 +18,7 @@ function buildSummary() {
 
     if (ar0 == undefined || ar1 == undefined) {
         glist(gSRC);
-    } else if (type(ar0) == "object") {
+    } else if (typeof(ar0) == "object") {
         var gSRCs = [...gSRC, ...ar0];
         glist(gSRCs);
     } else if (typeof (ar1) == "object") {
@@ -32,7 +32,7 @@ function buildSummary() {
             if (fcount[0] !== undefined) {
                 for (var i = 0; i < fcount.length; i++) {
                     var CFpath = fcount[i];
-                    var CFtitle = gH1.getFirstH1(fcount[i]);
+                    var CFtitle = gH1.getFirstH1(fcount[i],"both");
                     if (ar0 == "-t") {
                         var prefix = '\ \ ';
                         var spsign = CFpath.match(/\//g);
