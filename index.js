@@ -12,13 +12,12 @@ let optCount = opts.length;
 
 let optionsArr = [];
 
-if (process.argv[3] !== undefined && process.argv[3] !== "-t") {// not -b -t 
+if (process.argv[3] !== undefined &&optCount>3) {
     for (var i = 3; i < optCount; i++) {
         var sub = process.argv[i];
         optionsArr.push(sub);
     }
 }
-
 switch (opt2) {
     case "-c":
         FileCreater.cf(true);
@@ -29,19 +28,10 @@ switch (opt2) {
         console.log('has deleted');
         break;
 }
-
-if (opt2 == "-b" && optCount > 3) {
-    if (process.argv[3] !== "-t") {
-        builder.buildSummary(optionsArr);
-    } else {
-        builder.buildSummary("-t", optionsArr);
-    }
-} else if (opt2 == "-b" && process.argv[3] == undefined) {
-    builder.buildSummary();
-}else if(opt2 =="-b" && process.argv[3]=="-t" && process.argv[4]==undefined){
-    builder.buildSummary("-t");
+// node index -b -t !ignore
+if (opt2 == "-b") {
+    builder.buildSummary(optionsArr);
 }
-
 
 module.exports = {
     summaryBuilder: builder,

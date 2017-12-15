@@ -1,13 +1,16 @@
 # summarybuilder 目录生成器
 
-> v1.2.0
+> v1.3.0
 
-主要应用于`gitbook`以及类似于它一样有`SUMMARY.md`的项目插件的小工具(目前只支持`.md`(.html)或者类型文件的处理)，就两个用途：
+主要应用于`gitbook`以及类似于它一样有`SUMMARY.md`的项目插件的小工具(目前只支持`.md`类型)，就两个用途：
 
 1. 基于现有的 `SUMMARY.md` 中已列出的文件清单，批量创建它们（`已经存在的文件会忽略掉`）;
     > NOTE: 我测试了，确实不会重写已有文件，但是不确定会不会存在某些为知的情形导致重写已有文件（那将是很糟糕的事情）建议在项目以外的地方测试下。
+
 2. 基于现有的`.md`文件创建`SUMMARY.md`清单。
     > NOTE: 不会直接重写SUMMARY.md文件（这样不科学），会生成一个：`_summary.md`的文件到项目根目录下，需要手动调整顺序再复制并粘贴到你的项目的`SUMMARY.md`文件中。
+
+3. 事实上，它可以用于存在 `.md` Markdown 文件的任何目录。
 
 NOTE: 
 
@@ -24,6 +27,12 @@ NOTE:
 
 ## changes in new version
 
+### At v1.3 
+
+* [x] 解决filepath 存在多级目录时生成文章会报错。
+  >可能在不同的系统会有报错的可能性吧，如果发现还请告知。
+* [x] 解决排除文件无效问题。
+
 ### At v1.2
 
 * [x] 修复不能排除多个文件问题
@@ -37,7 +46,7 @@ NOTE:
 
 ## Usage
 
-> 如果有什么错误和遗漏还请大家指正。thanks
+> 如果有什么错误和遗漏还请大家指正。Thanks
 
 ### Install 安装
 
@@ -46,7 +55,7 @@ NOTE:
     `npm install summarybuilder --save -dev`
 * 全局安装
 
-    `npm install summarybuilder -g`
+    `npm install summarybuilder -g`     推荐
 
 ### Commands 命令
 
@@ -78,7 +87,7 @@ summary -b !/exc/**
 
 summary -b -t !/exc/**
 
-# 排除多个文件/文件夹：
+# 排除多个文件/文件夹(不同的文件、文件夹用空格隔开)：
 
 summary -b -t !/exc/** !test/** !one/two/xx.md
 
@@ -101,22 +110,20 @@ gulp.task('builderSumm',()=>{
 
 ## Plugin functions
 
-### 1. summaryBuilder();
+### 1. summaryBuilder(arr);
 
 生成 _summary.md 文件
 
- * @arguments[0] {string} 是否缩进,弱使用该参数只能是: `-t`
- * @arguments[1] {array} ignore 数组格式,支持的格式和`gulp.src([...])`一样
+ * @param {string} arr 数组 ['-b','-t','!exc/**','!exc1/...'],'-b'是必须的，其他的随意按需设置。
 
 ### 2. getFileHeader();
 
 获取文件的标题。
- * @param {string} FilePath 文件路径
- * @param {string} filetype 问价类型，可接受的值:'html'|'md'|'both' 
+ * @param {string} FilePath 文件路径，仅支持`.md`。
+ * @param {string} filetype 文件类型
 
 ### 3. createFiles();
-
-删除垃圾文件
+创建Markdown 文件，需要当前目录存在SUMMARY.md 文件。参数只能是`true`
 
 ## Licence
 

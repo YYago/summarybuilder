@@ -1,7 +1,7 @@
 var fs = require('fs');
 var readline = require('readline');
 var path = require('path');
-
+var fpc = require('./fsAndPathContrl');
 function cf(bool) {
     if (bool == true) {
         var rl = readline.createInterface({
@@ -12,20 +12,8 @@ function cf(bool) {
             title = '# ' + title[0].replace(/^\[|\]$/g, "");
             var filePath = line.match(/\([\w\W]*\)\B/g);
             var fileName = filePath[0].replace(/[\(\)]/g,"");
-            var fileName_dir =  path.dirname(fileName);
-            if(fs.existsSync(fileName)==false){
-                if(fs.existsSync(fileName_dir)){
-                    fs.writeFileSync(fileName,title,{encoding:'utf8'},(err)=>{
-                        if(err) throw err;
-                    });
-                }else{
-                    fs.mkdirSync(fileName_dir);
-                    fs.writeFileSync(fileName,title,{encoding:'utf8'},(err)=>{
-                        if(err) throw err;
-                    });
-                }
-            }
-            
+            fpc.pwedu_fileAndDirCreate(fileName,title,false);
+            console.log(fileName+'.........ok');
         });
     }
 }

@@ -10,21 +10,19 @@ function glist(srcs) {
         .pipe(gulp.dest('./'));
 }
 
-function buildSummary() {
-    var ar0 = arguments[0];
-    var ar1 = arguments[1];
-
+function buildSummary(arr) {
+    var opt_t=arr[0];
     var gSRC = ['./**/*.md', './**/*.html', '!SUMMARY.md', '!node_modules/**', '!_summary.md'];
-
-    if (ar0 == undefined || ar1 == undefined) {
+    if(arr==null){
         glist(gSRC);
-    } else if (typeof(ar0) == "object") {
-        var gSRCs = [...gSRC, ...ar0];
+    }else if(arr!==undefined && arr[0]=="-t"){
+        var arrs = arr.splice(0,1);
+        var gSRCs = [...gSRC,...arr];
         glist(gSRCs);
-    } else if (typeof (ar1) == "object") {
-        var gSRCs = [...gSRC, ...ar1];
+    }else{
+        var gSRCs = [...gSRC,...arr];
+        glist(gSRCs);
     }
-
     setTimeout(function () {  // gulp 是否完成无法确定，只好等上3秒。我觉得应该够了.....
         if (fs.existsSync('./.li.json')) {
             var fcount = JSON.parse(fs.readFileSync('./.li.json'));
@@ -33,7 +31,7 @@ function buildSummary() {
                 for (var i = 0; i < fcount.length; i++) {
                     var CFpath = fcount[i];
                     var CFtitle = gH1.getFirstH1(fcount[i],"both");
-                    if (ar0 == "-t") {
+                    if (arr!==null && opt_t == "-t") {
                         var prefix = '\ \ ';
                         var spsign = CFpath.match(/\//g);
                         if (spsign !== null) {
@@ -56,10 +54,10 @@ function buildSummary() {
                         throw err;
                     }
                 });
+                console.log("ok");
             }
         }
     }, 5000);
-    console.log("ok");
 }
 
 module.exports = {
