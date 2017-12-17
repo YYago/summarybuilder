@@ -5,7 +5,6 @@
 主要应用于`gitbook`以及类似于它一样有`SUMMARY.md`的项目插件的小工具(目前只支持`.md`类型)，就两个用途：
 
 1. 基于现有的 `SUMMARY.md` 中已列出的文件清单，批量创建它们（`已经存在的文件会忽略掉`）;
-    > NOTE: 我测试了，确实不会重写已有文件，但是不确定会不会存在某些为知的情形导致重写已有文件（那将是很糟糕的事情）建议在项目以外的地方测试下。
 
 2. 基于现有的`.md`文件创建`SUMMARY.md`清单。
     > NOTE: 不会直接重写SUMMARY.md文件（这样不科学），会生成一个：`_summary.md`的文件到项目根目录下，需要手动调整顺序再复制并粘贴到你的项目的`SUMMARY.md`文件中。
@@ -25,20 +24,31 @@ NOTE:
     summaryBuilder() 进行配置。
     ```
 
+* **在使用git进行push之前请删掉插件生成的文件或者将其写进`.gitignore`中排除**。 
+    ```
+    # tmp files
+    _summary.md
+    .li.json
+    ```
+
 ## changes in new version
 
-### At v1.3 
+### v1.3.1
+
+* [x] 修复windows 平台路径生成不完整问题（带根目录前缀时）。
+
+###  v1.3 
 
 * [x] 解决filepath 存在多级目录时生成文章会报错。
   >可能在不同的系统会有报错的可能性吧，如果发现还请告知。
 * [x] 解决排除文件无效问题。
 
-### At v1.2
+###  v1.2
 
 * [x] 修复不能排除多个文件问题
 * [x] `-t` 参数需前置，排在排除文件之前。
 
-### At v1.1.1
+###  v1.1.1
 * [x] 支持缩进：像这样 `summary -b -t`。
 * [x] `summary -b` 命令支持排除文件——以参数的方式。
 * [x] 解决创建新的 markdown 文件时的报错中断问题(未能准确处理`fs`和`Path`模块导致)。
@@ -108,13 +118,13 @@ gulp.task('builderSumm',()=>{
 
 ```
 
-## Plugin functions
+## Plugin function
 
 ### 1. summaryBuilder(arr);
 
 生成 _summary.md 文件
 
- * @param {string} arr 数组 ['-b','-t','!exc/**','!exc1/...'],'-b'是必须的，其他的随意按需设置。
+ * @param {array} arr 数组 ['-b','-t','!exc/**','!exc1/...'],'-b'是必须的，其他的随意按需设置。
 
 ### 2. getFileHeader();
 

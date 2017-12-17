@@ -4,12 +4,11 @@ function pwedu_fileAndDirCreate(filepath, writeData, isREwite) {
     let path = require('path');
     let fs = require('fs');
     let systemOS = os.type();
-    let filepath_dir = path.dirname(filepath);
 
     if (systemOS == "Windows_NT") {
         let spmRegexp = new RegExp(/\:\/|(\.\/)/g);
         if (spmRegexp.test(filepath)) {
-            var dirSlipt = filepath_dir.replace(/\/|\\/g, "\\");
+            var dirSlipt = filepath.replace(/\/|\\/g, "\\");
         } else {
             var dirSlipt = './' + filepath;
         }
