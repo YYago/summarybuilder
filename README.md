@@ -109,9 +109,9 @@ summary -b -t !/exc/** !test/** !one/two/xx.md
 
 ```
 //...
-
+const summaryTool = require('summarybuilder');
 gulp.task('builderSumm',()=>{
-    summaryBuilder(...),
+    summaryTool.builder(...),
 });
 
 // 想要可控，可以使用gulp.task()来控制。
@@ -120,19 +120,18 @@ gulp.task('builderSumm',()=>{
 
 ## Plugin function
 
-### 1. summaryBuilder(arr);
+### 1. builder(argvs);
 
 生成 _summary.md 文件
 
  * @param {array} arr 数组 ['-b','-t','!exc/**','!exc1/...'],'-b'是必须的，其他的随意按需设置。
 
-### 2. getFileHeader();
+### 2. geth1();
 
 获取文件的标题。
  * @param {string} FilePath 文件路径，仅支持`.md`。
- * @param {string} filetype 文件类型
 
-### 3. createFiles();
+### 3. FileCreater();
 创建Markdown 文件，需要当前目录存在SUMMARY.md 文件。参数只能是`true`
 
 ## Licence
