@@ -32,9 +32,10 @@ switch (opt2) {
 if (opt2 == "-b") {
     builder.buildSummary(optionsArr);
 }
+const SBer_summary = require('./builder').onlySmHere;
+const SBer_createMD = require('./createFiles').onlyCreateFrom;
 
 module.exports = {
-    summaryBuilder: builder,
-    getFileHeader: geth1,
-    createFiles: FileCreater,
+    SBer_summary,
+    SBer_createMD
 }
