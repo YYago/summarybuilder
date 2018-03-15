@@ -1,7 +1,9 @@
 var fs = require('fs');
 var readline = require('readline');
 var path = require('path');
-var fpc = require('./fsAndPathContrl');
+const chalk = require('chalk');
+// var fpc = require('./fsAndPathContrl');
+const nNmc = require('node-modules-custom');
 function cf(bool) {
     if (bool == true) {
         var rl = readline.createInterface({
@@ -12,8 +14,9 @@ function cf(bool) {
             title = '# ' + title[0].replace(/^\[|\]$/g, "");
             var filePath = line.match(/\([\w\W]*\)\B/g);
             var fileName = filePath[0].replace(/[\(\)]/g,"");
-            fpc.pwedu_fileAndDirCreate(fileName,title,false);
-            console.log(fileName+'.........ok');
+            //fpc.pwedu_fileAndDirCreate(fileName,title,false);
+            nNmc.fs_wfSync(fileName,title,false)
+            console.log(`${chalk.yellow('summarybuilder:  ')}`+fileName+'.........ok');
         });
     }
 }
@@ -39,17 +42,20 @@ function onlyCreateFrom(summaryFilePath){
             var fileName = filePath[0].replace(/[\(\)]/g,"");
             if(ostpye=="Windows_NT" && agm!==undefined){
                 var wData = title + '\r\n'+agm;
-                fpc.pwedu_fileAndDirCreate(fileName,wData,false);
+                //fpc.pwedu_fileAndDirCreate(fileName,wData,false);
+                nNmc.fs_wfSync(fileName,wData,false)
             }else if(ostpye !=="Windows_NT" && agm!==undefined){
                 var wData = title + '\n'+agm;
-                fpc.pwedu_fileAndDirCreate(fileName,wData,false);
+                //fpc.pwedu_fileAndDirCreate(fileName,wData,false);
+                nNmc.fs_wfSync(fileName,wData,false)
             }else{
-                fpc.pwedu_fileAndDirCreate(fileName,title,false);
+                // fpc.pwedu_fileAndDirCreate(fileName,title,false);
+                nNmc.fs_wfSync(fileName,title,false)
             }
-            console.log(fileName+'.........ok');
+            console.log(`${chalk.yellow('summarybuilder:  ')}`+fileName+'.........ok');
         });
     }else{
-        console.log("找不到"+summaryFilePath)
+        console.log(`${chalk.yellow('summarybuilder:  ')}找不到文件--`+summaryFilePath)
     }
 }
 module.exports = {

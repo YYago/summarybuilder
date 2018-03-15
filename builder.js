@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var gFileList = require('gulp-filelist');
 var gH1 = require('./geth1');
 var fs = require('fs');
-
+const chalk = require('chalk');
 
 function glist(srcs) {
     gulp.src(srcs)
@@ -54,7 +54,7 @@ function buildSummary(arr) {
                         throw err;
                     }
                 });
-                console.log("ok");
+                console.log(`${chalk.yellow('summarybuilder:  ')}`+"_summary.md......ok");
             }
         }
     }, 5000);
@@ -98,12 +98,47 @@ function onlySmHere(jsonFileName,isIndent,outFileName){
                     throw err;
                 }
             });
-            console.log(outFileName+"ok");
+            console.log(`${chalk.yellow('summarybuilder:  ')}`+outFileName+"......ok");
         }
+    }else if(typeof(jsonFileName)=="object"){
+        var fcount = jsonFileName;
+        var foooo = [];
+        if (fcount[0] !== undefined) {
+            for (var i = 0; i < fcount.length; i++) {
+                var CFpath = fcount[i];
+                var CFtitle = gH1.getFirstH1(fcount[i],"both");
+                if ( isIndent == true) {
+                    var prefix = '\ \ ';
+                    var spsign = CFpath.match(/\//g);
+                    if (spsign !== null) {
+                        var spsignCount = spsign.length;
+                        var prefixRep = prefix.repeat(spsignCount);
+                        var foo_item = prefixRep + '* [' + CFtitle + '](' + CFpath + ')';
+                        foooo.push(foo_item);
+                    } else {
+                        var foo_item = '* [' + CFtitle + '](' + CFpath + ')';
+                        foooo.push(foo_item);
+                    }
+                } else {
+                    var foo_item = '* [' + CFtitle + '](' + CFpath + ')';
+                    foooo.push(foo_item);
+                }
+            }
+            var datas = foooo.join('\n');
+            fs.writeFile(outFileName, datas, { encoding: 'utf8', flag: 'w' }, function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
+            console.log(`${chalk.yellow('summarybuilder:  ')}`+outFileName+" ....... ok");
+        }
+        
     }else{
-        console.log("No such a file names:"+jsonFileName+'. It is better to be created by the plugin: gulp-filelist.And sure all path of the list in '+jsonFileName+' are existent.')
+        console.log(`${chalk.yellow('summarybuilder:  ')}`+"No such a file names:"+jsonFileName+'. It is better to be created by the plugin: gulp-filelist.And sure all path of the list in '+jsonFileName+' are existent.');
+        console.log(`${chalk.yellow('summarybuilder:  ')}`+' You can use an array type variable ,or like this: SBer_summary(["a.md","b/a.md"],true,"mySummary.md"). ')
     }
 }
+
 module.exports = {
     buildSummary,
     onlySmHere

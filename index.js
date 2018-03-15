@@ -4,6 +4,7 @@ const del = require('del');
 const builder = require('./builder');
 const FileCreater = require('./createFiles');
 const geth1 = require('./getH1');
+const chalk = require('chalk');
 
 const opts = process.argv;
 const opt2 = process.argv[2];
@@ -25,7 +26,7 @@ switch (opt2) {
     case "-d":
         del.sync('./.li.json');
         del.sync('./_summary.md');
-        console.log('has deleted');
+        console.log(`${chalk.yellow('summarybuilder:  ')}`+'Temporary Files has deleted!');
         break;
 }
 // node index -b -t !ignore
