@@ -35,8 +35,9 @@ if (opt2 == "-b") {
 }
 const SBer_summary = require('./builder').onlySmHere;
 const SBer_createMD = require('./createFiles').onlyCreateFrom;
-
+const SBer_summaryMDs = require('./builder').buildSummaryHere;
 module.exports = {
     SBer_summary,
-    SBer_createMD
+    SBer_createMD,
+    SBer_summaryMDs
 }

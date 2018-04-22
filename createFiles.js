@@ -52,10 +52,10 @@ function onlyCreateFrom(summaryFilePath){
                 // fpc.pwedu_fileAndDirCreate(fileName,title,false);
                 nNmc.fs_wfSync(fileName,title,false)
             }
-            console.log(`${chalk.yellow('summarybuilder:  ')}`+fileName+'.........ok');
+            console.log(`${chalk.yellow('summarybuilder:  ')}`+fileName+'.........created!');
         });
     }else{
-        console.log(`${chalk.yellow('summarybuilder:  ')}找不到文件--`+summaryFilePath)
+        console.log(`${chalk.yellow('summarybuilder:  ')}找不到文件(No such file)--`+summaryFilePath)
     }
 }
 module.exports = {
