@@ -60,7 +60,7 @@ function buildSummary(arr) {
                 console.log(`${chalk.yellow('summarybuilder:  ')}`+"can't find any .md file,It's 'nothing'");
             }
         }
-    }, 5000);
+    }, 3000);
 }
 // for gulp
 /**
@@ -148,16 +148,16 @@ function onlySmHere(jsonFileName,isIndent,outFileName){
  */
 function buildSummaryHere(arr) {
     var opt_t=arr[0];
+    var gSRC = ['./**/*.md','!SUMMARY.md', '!node_modules/**', '!_summary.md'];
     var ignores = ['!SUMMARY.md', '!node_modules/**', '!_summary.md'];
     if(arr==null){
-        var gSRC = [...ignores,'./**/*.md'];
         glist(gSRC);
-    }else if(arr!==undefined && arr[0]=="-t"){
+    }else if(arr!==undefined && arr[0]=="-t" && arr[1] ==undefined){
         var arrs = arr.splice(0,1);
         var gSRCs = [...gSRC,...arr];
         glist(gSRCs);
     }else{
-        var gSRCs = [...gSRC,...arr];
+        var gSRCs = [...ignores,...arr];
         glist(gSRCs);
     }
     setTimeout(function () {  // gulp 是否完成无法确定，只好等上3秒。我觉得应该够了.....
@@ -196,7 +196,7 @@ function buildSummaryHere(arr) {
                 fs.writeFileSync('_summary.md',"nothing!",{ encoding: 'utf8', flag: 'w' })
             }
         }
-    }, 5000);
+    }, 3000);
 }
 module.exports = {
     buildSummary,
