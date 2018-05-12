@@ -3,6 +3,8 @@ var gFileList = require('gulp-filelist');
 var gH1 = require('./getH1');
 var fs = require('fs');
 const chalk = require('chalk');
+const lodash = require('lodash');
+const haslisted = require('./getHasListed');
 
 function glist(srcs) {
     gulp.src(srcs)
@@ -27,6 +29,9 @@ function buildSummary(arr) {
         if (fs.existsSync('./.li.json')) {
             var fcount = JSON.parse(fs.readFileSync('./.li.json'));
             var foooo = [];
+            if(fs.existsSync('SUMMARY.md')){
+                fcount = lodash.without(fcount,...haslisted.hasListed('SUMMARY.md'));
+            }
             if (fcount[0] !== undefined) {
                 for (var i = 0; i < fcount.length; i++) {
                     var CFpath = fcount[i];
@@ -54,10 +59,10 @@ function buildSummary(arr) {
                         throw err;
                     }
                 });
-                console.log(`${chalk.yellow('summarybuilder:  ')}`+"_summary.md......ok");
+                console.log(`${chalk.yellow('summarybuilder:  ')}`+"_summary.md has updated!");
             }else{
                 fs.writeFileSync('_summary.md',"nothing!",{ encoding: 'utf8', flag: 'w' });
-                console.log(`${chalk.yellow('summarybuilder:  ')}`+"can't find any .md file,It's 'nothing'");
+                console.log(`${chalk.yellow('summarybuilder:  ')}`+"can't find any .md files,or both has listed in SUMMARY.md , the summary.md is 'nothing'");
             }
         }
     }, 3000);
@@ -74,6 +79,9 @@ function onlySmHere(jsonFileName,isIndent,outFileName){
     if (fs.existsSync(jsonFileName)) {
         var fcount = JSON.parse(fs.readFileSync(jsonFileName));
         var foooo = [];
+        if(fs.existsSync('SUMMARY.md')){
+            fcount = lodash.without(fcount,...haslisted.hasListed('SUMMARY.md'));
+        }
         if (fcount[0] !== undefined) {
             for (var i = 0; i < fcount.length; i++) {
                 var CFpath = fcount[i];
@@ -106,6 +114,9 @@ function onlySmHere(jsonFileName,isIndent,outFileName){
     }else if(typeof(jsonFileName)=="object"){
         var fcount = jsonFileName;
         var foooo = [];
+        if(fs.existsSync('SUMMARY.md')){
+            fcount = lodash.without(fcount,...haslisted.hasListed('SUMMARY.md'));
+        }
         if (fcount[0] !== undefined) {
             for (var i = 0; i < fcount.length; i++) {
                 var CFpath = fcount[i];
@@ -164,6 +175,9 @@ function buildSummaryHere(arr) {
         if (fs.existsSync('./.li.json')) {
             var fcount = JSON.parse(fs.readFileSync('./.li.json'));
             var foooo = [];
+            if(fs.existsSync('SUMMARY.md')){
+                fcount = lodash.without(fcount,...haslisted.hasListed('SUMMARY.md'));
+            }
             if (fcount[0] !== undefined) {
                 for (var i = 0; i < fcount.length; i++) {
                     var CFpath = fcount[i];
