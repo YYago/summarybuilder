@@ -32,7 +32,11 @@ Mainly used for `gitbook` and gadgets like it with the `SUMMARY.md` project plug
 
 ## Changes in new version
 
-V 1.4.3 ：
+#### v 1.4.4
+
+* Add `'use strict'`.
+
+#### V 1.4.3 ：
 
 * Entries that already exist in `SUMMARY.md` will no longer appear in the `_summary.md` file. Eliminating the need to repeat manual adjustments.
 * Fixed an issue where headers had extra prefix spaces.

@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+
+"use strict";
+
 const process = require('process');
 const del = require('del');
 const builder = require('./builder');
@@ -13,7 +16,7 @@ let optCount = opts.length;
 
 let optionsArr = [];
 
-if (process.argv[3] !== undefined &&optCount>3) {
+if (process.argv[3] !== undefined && optCount > 3) {
     for (var i = 3; i < optCount; i++) {
         var sub = process.argv[i];
         optionsArr.push(sub);
@@ -26,7 +29,7 @@ switch (opt2) {
     case "-d":
         del.sync('./.li.json');
         del.sync('./_summary.md');
-        console.log(`${chalk.yellow('summarybuilder:  ')}`+'Temporary Files has deleted!');
+        console.log(`${chalk.yellow('summarybuilder:  ')}` + 'Temporary Files has deleted!');
         break;
 }
 // node index -b -t !ignore

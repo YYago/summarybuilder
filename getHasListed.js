@@ -1,3 +1,4 @@
+"use strict";
 const fs = require('fs');
 function hasListed(summaryFilePath){
     let retHaslisted =[];

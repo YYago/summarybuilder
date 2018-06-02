@@ -1,3 +1,4 @@
+"use strict";
 var fs = require('fs');
 function getFirstH1(file) {
     var mdreg = new RegExp(/\.md$/g);

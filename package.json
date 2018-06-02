@@ -1,6 +1,6 @@
 {
   "name": "summarybuilder",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "用于gitbook的Summary.md 文件的工具，基于已有文件创建目录摘要，或者基于已有的目录摘要创建对应的文件(已经存在的文件不会创建)。The tool for the Summary.md file in gitbook, creates a directory summary based on existing files, or creates a corresponding file based on an existing directory summary (existing files are not created).",
   "main": "index.js",
   "scripts": {

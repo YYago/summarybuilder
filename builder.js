@@ -1,3 +1,4 @@
+"use strict";
 var gulp = require('gulp');
 var gFileList = require('gulp-filelist');
 var gH1 = require('./getH1');
