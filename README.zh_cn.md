@@ -28,6 +28,12 @@
 
 ## 新版本
 
+#### V1.4.5
+
+* 修复在`SUMMARY.md`文件中因存在类似`* [example(new)](docs/example.md)`条目在创建时会变成`new]docs/example.md`的情形。
+
+>**注意**：这个 BUG 虽基本修复但并不是完全能避免其触发，当出现这样的情形时还是会触发：`* [hello[the](world)](htw.md)`，即便这种写法不能被正常的渲染出来（渲染结果不是：`hello[the](world)`，我们把它看作 Markdown 语法错误好了），但若存在依旧会被强行渲染（并不会因为“错误”而终止，它依旧有效，哪怕不是我们想要的）。因此，你不应该在 `SUMMARY.md` 文件目录清单中以及其他 ".md" 文件的标题中使用这种会引发冲突的写法。
+
 #### v 1.4.4
 
 * 使用严格模式
@@ -143,7 +149,7 @@ gulp.task('summary',()=>{
 
 `SBer_summary( jsonFileName, isIndent, outFileName )`
 
-* `jsonFileName`：type: *string OR Array*——The path of the JSON file.It is better to be created by the plugin: [gulp-filelist](https://www.npmjs.com/package/gulp-filelist). Or like this: 
+* `jsonFileName`：type: *string OR Array*——The path of the JSON file. It is better to be created by the plugin: [gulp-filelist](https://www.npmjs.com/package/gulp-filelist). Or like this: 
 
     ```js
     SBer_summary(["a.md","b/a.md"],true,"mySummary.md")
@@ -185,9 +191,9 @@ sm.SBer_summary(['a.md','b.md','test/x/y/z.md'],true,'_sm.md');
 
 ### 2. SBer_createMD() *创建对应的markdown文件*。
 
-`SBer_createMD( summaryFilePath )`，基于类似SUMMARY.md的列表创建对应的markdown文件。
+`SBer_createMD( summaryFilePath )`，基于类似 `SUMMARY.md` 的列表创建对应的markdown文件。
 
-* `summaryFilePath`:type: *string*——具有和*SUMMARY.md* 相同内容格式的文件的路径(当然，也可以直接用SUMMARY.md的路径)。
+* `summaryFilePath`:type: *string*——具有和 `SUMMARY.md` 相同内容格式的文件的路径(当然，也可以直接用SUMMARY.md的路径)。
 
 * `arguments[1]`: type: *string*——添加标题以外的内容，可以是Markdown的正文部分(*第一个`#`标记已经存在，如不是必须，最好不要重复加入*)。
 
@@ -218,7 +224,7 @@ sm.SBer_summary(['a.md','b.md','test/x/y/z.md'],true,'_sm.md');
 
 也许简单点会好用点。
 
-Note: 确保所给的值不会触发“Missing positive glob” ，即确保有文件能被匹配到并进入pipe()流。否则会报错并退出进程。
+**Note: 确保所给的值不会触发“Missing positive glob” ，即确保有文件能被匹配到并进入pipe()流。否则会报错并退出进程。**
 
 example：
 ```js
@@ -232,14 +238,16 @@ SBer_summaryMDs(['./**/*.md','!Docs/**/*.md','!README.md']);
 SBer_summaryMDs(['-t']);
 
 // But like this will report error:
+//     以下两种写法都会报错：
+//          使用了gulp.src()的原因，gulp.src(['!README.md']) 并不能匹配到任何文件。
+// 因此，必须保证所给的参数能匹配到你想要的文件。
+
 SBer_summaryMDs(['!README.md']);
 // or 
 SBer_summaryMDs(['-t','!README.md']);
-
-// Them will report an error both,because gulp.src(['!README.md']) can't get any thing from stream.
 ```
 
-`SBer_summaryMDs(array)`与 `SBer_summary( jsonFileName, isIndent, outFileName )`的区别：
+### `SBer_summaryMDs(array)`与 `SBer_summary( jsonFileName, isIndent, outFileName )`的区别：
 
 The difference between `SBer_summaryMDs(array)` and `SBer_summary( jsonFileName, isIndent, outFileName )`:
 

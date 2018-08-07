@@ -3,7 +3,6 @@ var fs = require('fs');
 var readline = require('readline');
 var path = require('path');
 const chalk = require('chalk');
-// var fpc = require('./fsAndPathContrl');
 const nNmc = require('node-modules-custom');
 function cf(bool) {
     if (bool == true) {
@@ -13,9 +12,8 @@ function cf(bool) {
         rl.on('line', function (line) {
             var title = line.match(/\[[\s\S]*\]\B/g);
             title = '# ' + title[0].replace(/^\[|\]$/g, "");
-            var filePath = line.match(/\([\w\W]*\)\B/g);
-            var fileName = filePath[0].replace(/[\(\)]/g,"");
-            //fpc.pwedu_fileAndDirCreate(fileName,title,false);
+            var filePath = line.match(/\]\([\w\W]*\)\B/g);// fix: 匹配上出了问题——如果像这样： `* [title(hello)](hi.md)` 路径就会可能变成 hello]/hi.md,修复： 将路径匹配范围改为 "](...)" Note: 这个BUG可能依旧会存在：当出现类似:"* [[title](hello)](hi.md)"时，只能警示用户此BUG的存在，让用户在创建文件之前修改标题以避免类似的情况发生。
+            var fileName = filePath[0].replace(/[\]\(\)]/g,"");// fix: 将多余的“]”去掉。
             nNmc.fs_wfSync(fileName,title,false)
             console.log(`${chalk.yellow('summarybuilder:  ')}`+fileName+'.........ok');
         });
@@ -39,18 +37,15 @@ function onlyCreateFrom(summaryFilePath){
         rl.on('line', function (line) {
             var title = line.match(/\[[\s\S]*\]\B/g);
             title = '# ' + title[0].replace(/^\[|\]$/g, "");
-            var filePath = line.match(/\([\w\W]*\)\B/g);
-            var fileName = filePath[0].replace(/[\(\)]/g,"");
+            var filePath = line.match(/\]\([\w\W]*\)\B/g);
+            var fileName = filePath[0].replace(/[\]\(\)]/g,"");
             if(ostpye=="Windows_NT" && agm!==undefined){
                 var wData = title + '\r\n'+agm;
-                //fpc.pwedu_fileAndDirCreate(fileName,wData,false);
                 nNmc.fs_wfSync(fileName,wData,false)
             }else if(ostpye !=="Windows_NT" && agm!==undefined){
                 var wData = title + '\n'+agm;
-                //fpc.pwedu_fileAndDirCreate(fileName,wData,false);
                 nNmc.fs_wfSync(fileName,wData,false)
             }else{
-                // fpc.pwedu_fileAndDirCreate(fileName,title,false);
                 nNmc.fs_wfSync(fileName,title,false)
             }
             console.log(`${chalk.yellow('summarybuilder:  ')}`+fileName+'.........created!');

@@ -1,12 +1,12 @@
 # summarybuilder
 
-> [中文 README >>](./README.zh_cn.md)。
+> [中文 README >>](./README.zh_cn.md).
 
 Mainly used for `gitbook` and gadgets like it with the `SUMMARY.md` project plugin (currently only supports `.md` types), for two purposes:
 
 1. Based on the existing list of files already listed in `SUMMARY.md`, create them in batches (` existing files will be ignored);
 
-2. Create a list of `SUMMARY.md` based on the existing `.md` file.Will not directly rewrite the SUMMARY.md file, will generate a: `_summary.md` file to the project root directory, need to manually adjust the order and then copy and paste into your project `SUMMARY.md` file.
+2. Create a list of `SUMMARY.md` based on the existing `.md` file.Will not directly rewrite the `SUMMARY.md` file, will generate a: `_summary.md` file to the project root directory, need to manually adjust the order and then copy and paste into your project `SUMMARY.md` file.
 
 3. In fact, it can be used for any directory where `.md` files exist. You can also import the `summarybuilder` module to the project's gulp task.
 
@@ -31,6 +31,11 @@ Mainly used for `gitbook` and gadgets like it with the `SUMMARY.md` project plug
     ```
 
 ## Changes in new version
+
+#### v 1.4.5
+
+* Fixed a situation where the `'*[example(new)](docs/example.md)'` entry in the `SUMMARY.md` file would become `'new]docs/example.md'` when it was created.
+    >**Note**: Although this BUG is basically fixed but not completely avoidable, it will trigger when this happens: `'* [hello[the](world)](htw.md)'`, even This kind of writing can't be rendered normally (the rendering result is not: `'hello[the](world)'`.well, It look as a Markdown syntax error), but if it exists, it will be forced to render (not because of " The error "terminates, it still works, even if it is not what we want). Therefore, you should not use this type of conflicting stash in the `SUMMARY.md` file or in the headers of other ".md" files.
 
 #### v 1.4.4
 
