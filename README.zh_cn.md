@@ -28,7 +28,11 @@
 
 ## 新版本
 
-#### V1.4.5
+#### v 1.4.6
+
+* 为 [kc-cli](https://www.npmjs.com/package/kc-cli) 提供支持：子目录的缩进`4`个空格。
+
+#### V 1.4.5
 
 * 修复在`SUMMARY.md`文件中因存在类似`* [example(new)](docs/example.md)`条目在创建时会变成`new]docs/example.md`的情形。
 

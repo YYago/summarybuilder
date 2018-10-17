@@ -32,6 +32,10 @@ Mainly used for `gitbook` and gadgets like it with the `SUMMARY.md` project plug
 
 ## Changes in new version
 
+#### v 1.4.6
+
+* Provide support for [kc-cli](https://www.npmjs.com/package/kc-cli)
+
 #### v 1.4.5
 
 * Fixed a situation where the `'*[example(new)](docs/example.md)'` entry in the `SUMMARY.md` file would become `'new]docs/example.md'` when it was created.
