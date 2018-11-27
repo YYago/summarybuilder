@@ -4,7 +4,9 @@
   "description": "The tool for the 'SUMMARY.md' file. creates a directory summary based on existing files or creates a corresponding file based on an existing directory summary (existing files are not created).用于Summary.md 文件的工具，基于已有文件创建目录摘要，或者基于已有的目录摘要创建对应的文件(已经存在的文件不会被创建)。",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -27,9 +29,11 @@
   "dependencies": {
     "chalk": "^2.3.2",
     "del": "^3.0.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-filelist": "^1.0.0",
     "lodash": "^4.17.10",
-    "node-modules-custom": "^1.0.4"
-  }
+    "node-modules-custom": "^1.0.4",
+    "snyk": "^1.104.2"
+  },
+  "snyk": true
 }
