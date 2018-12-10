@@ -8,4 +8,3 @@
 No longer maintenance! Try to replace it with [summarymd](https://www.npmjs.com/package/summarymd) pack.
 
 ----
-

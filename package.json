@@ -4,7 +4,7 @@
   "description": "The tool for the 'SUMMARY.md' file. creates a directory summary based on existing files or creates a corresponding file based on an existing directory summary (existing files are not created).用于Summary.md 文件的工具，基于已有文件创建目录摘要，或者基于已有的目录摘要创建对应的文件(已经存在的文件不会被创建)。",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
